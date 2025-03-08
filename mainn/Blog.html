@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RM Solution - Blog</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <link rel="stylesheet" type="text/css" href="../StyleCSS/Blog.css">
+    <script>
+        $(document).ready(function () {
+            $("#header").load("Header.html");
+            $("#footer").load("Footer.html");
+        });
+        function goCodeforces() { window.location.href = "codeforces.html"; }
+        function goLeetcode() { window.location.href = "leetcode.html"; }
+        function goSpoj() { window.location.href = "spoj.html"; }
+        function goCSES() { window.location.href = "cses.html"; }
+    </script>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <!-- Header -->
+        <header id="header" style="width: 900px; height: 550px; margin-right: 6px; font-family: Georgia, 'Times New Roman', Times, serif; margin-bottom: -450px;"></header>
+
+        <!-- Giới thiệu -->
+        <div class="intro">
+            <p>Giới thiệu về Blog</p>
+            <p>🌟 Chào mừng bạn đến với blog của mình! 🌟 Đây là không gian chia sẻ các giải pháp lập trình trên Codeforces, LeetCode, SPOJ, CSES và nhiều hơn nữa.</p>
+            <p>📚 Dù có thể chưa phải cách tối ưu nhất, nhưng hy vọng nó sẽ giúp ích cho bạn trong hành trình học hỏi.</p>
+            <p><strong>Cảm ơn bạn đã ghé thăm, chúc bạn có một ngày tuyệt vời! 🍀✨</strong></p>
+        </div>
+
+        <!-- web -->
+        <div class="oj-group">
+            <article onclick="goCodeforces()" class="codeforces">
+                <h2 class="b-logo">Codeforces</h2>
+                <p class="s-logo">by <strong>LongPham</strong></p>
+                <div class="blog-tags">
+                    <p>Tag:</p>
+                    <span class="tag">CP-Algorithm</span>
+                    <span class="tag">Study</span>
+                </div>
+                <div class="blog-content">
+                    Các giải pháp của mình trên nền tảng Codeforces.
+                </div>
+            </article>
+
+            <article onclick="goLeetcode()" class="leetcode">
+                <h2 class="b-logo">LeetCode</h2>
+                <p class="s-logo">by <strong>LongPham</strong></p>
+                <div class="blog-tags">
+                    <p>Tag:</p>
+                    <span class="tag">CP-Algorithm</span>
+                    <span class="tag">Study</span>
+                </div>
+                <div class="blog-content">
+                    Các giải pháp của mình trên nền tảng LeetCode.
+                </div>
+            </article>
+
+            <article onclick="goSpoj()" class="spoj">
+                <h2 class="b-logo">SPOJ</h2>
+                <p class="s-logo">by <strong>LongPham</strong></p>
+                <div class="blog-tags">
+                    <p>Tag:</p>
+                    <span class="tag">CP-Algorithm</span>
+                    <span class="tag">Study</span>
+                </div>
+                <div class="blog-content">
+                    Các giải pháp của mình trên nền tảng SPOJ.
+                </div> 
+            </article>
+
+            <article onclick="goCSES()" class="cses">
+                <h2 class="b-logo">CSES</h2>
+                <p class="s-logo">by <strong>LongPham</strong></p>
+                <div class="blog-tags">
+                    <p>Tag:</p>
+                    <span class="tag">CP-Algorithm</span>
+                    <span class="tag">Study</span>
+                </div>
+                <div class="blog-content">
+                    Các giải pháp của mình trên nền tảng CSES.
+                </div>
+            </article>
+        </div>
+
+        <!-- Footer -->
+        <div id="footer"></div>
+    </div>
+</body>
+
+</html>

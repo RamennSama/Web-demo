@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CSES Solution</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../StyleCSS/solution.css">
+    <script src="../JSCODE/Solution.js"></script>
+    <script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+        </script>
+    <script src="../JSCODE/HeadStyle.js"></script>
+</head>
+
+<body>
+    <header style="background: #f9e79f;">
+        <h1 style="font-family: 'Times New Roman', Times, serif;">CSES Solution</h1>
+        <nav>
+            <a href="../mainn/index.html">Trang chủ</a>
+            <a href="../mainn/Blog.html">Blog</a>
+        </nav>
+    </header>
+    <div class="container">
+
+        <div class="sidebar">
+            <h3 style="font-family: 'Times New Roman', Times, serif; font-size: 18px;">Mục lục</h3>
+            <ul>
+                <li><a href="#section1">Bài toán 1: Minimizing Coins</a></li>
+                <li><a href="#section2">Bài toán 2: Subordinates</a></li>
+                <li><a href="#section3">Bài toán 3: Static Range Sum Queries</a></li>
+            </ul>
+        </div>
+        <!-- Main content -->
+        <div class="main">
+            <h2 style="font-family: 'Times New Roman', Times, serif;">Giải pháp của các bài tập trên CSES</h2>
+            <p><strong>Fact : </strong>Các bài tập trên CSES, giúp bạn rèn luyện các thuật toán theo dạng</p>
+
+            <!-- Section 1 -->
+            <div class="section fontext" id="section1">
+                <div class="section-header" onclick="toggleSection(this)"
+                    style="font-family: 'Times New Roman', Times, serif; font-size: 18px;">Bài toán 1: Minimizing Coins
+                </div>
+                <div class="section-content">
+                    <div class="blog-tags">
+                        <p>Tag : </p>
+                        <span class="tag">Dynamic programming</span>
+                    </div>
+                    <!-- link -->
+                    <strong>Link bài toán: </strong><a
+                        href="https://cses.fi/problemset/task/1634">https://cses.fi/problemset/task/1634</a>
+                    <!--de bai-->
+                    <div class="solution-card" onclick="toggleSolution(this)">
+                        <div class="solution-header">
+                            Tóm tắt đề bài
+                            <span class="toggle-icon">▼</span>
+                        </div>
+                        <div class="solution-content">
+                            <p>Bạn có <strong>n</strong> loại tiền xu, mỗi loại có một giá trị nguyên dương khác nhau.
+                                Nhiệm vụ của bạn là tìm cách tạo ra tổng tiền <strong>x</strong> bằng cách sử dụng số
+                                lượng <strong>ít nhất</strong> các đồng xu có sẵn.</p>
+
+                            <p><strong>Ràng buộc:</strong></p>
+                            <ul>
+                                <li>\(1 \leq n \leq 100\)</li>
+                                <li>\(1 \leq x \leq 10^6\)</li>
+                                <li>\(1 \leq c_i \leq 10^6\)</li>
+                            </ul>
+
+                            <p><strong>Input:</strong></p>
+                            <ul>
+                                <li>Dòng đầu tiên chứa hai số nguyên <strong>n</strong> (số lượng loại tiền) và
+                                    <strong>x</strong> (tổng tiền cần tạo).</li>
+                                <li>Dòng thứ hai chứa <strong>n</strong> số nguyên <strong>c₁, c₂, ..., cₙ</strong> (giá
+                                    trị của từng loại tiền xu).</li>
+                            </ul>
+
+                            <p><strong>Output:</strong></p>
+                            <ul>
+                                <li>Một số nguyên duy nhất: số lượng ít nhất các đồng xu cần dùng để tạo tổng
+                                    <strong>x</strong>.</li>
+                                <li>Nếu không thể tạo ra tổng <strong>x</strong>, in <strong>-1</strong>.</li>
+                            </ul>
+
+                            <p><strong>Ví dụ:</strong></p>
+                            <p><strong>Input:</strong></p>
+                            <pre>
+3 11
+1 5 7
+        </pre>
+                            <p><strong>Output:</strong></p>
+                            <pre>
+3
+        </pre>
+
+                            <p><strong>Giải thích:</strong></p>
+                            <ul>
+                                <li>Ta có thể tạo ra 11 bằng cách dùng <strong>5 + 5 + 1</strong>, tổng cộng <strong>3
+                                        đồng xu</strong>, đây là cách tối ưu nhất.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- loi giai -->
+                    <div class="solution-card" onclick="toggleSolution(this)">
+                        <div class="solution-header">
+                            Lời giải chi tiết
+                            <span class="toggle-icon">▼</span>
+                        </div>
+                        <div class="solution-content">
+                            <p>🔹 Bài toán này có thể được giải quyết bằng phương pháp <strong>quy hoạch động (Dynamic
+                                    Programming - DP)</strong>.</p>
+
+                            <p style="margin-top: 5px;"><strong>Ý tưởng:</strong></p>
+                            <ul style="list-style: none; padding-left: 0;">
+                                <li>🟢 <strong>Bước 1:</strong> Khởi tạo mảng <code>dp</code> với <code>dp[i]</code> là
+                                    số đồng xu tối thiểu để tạo ra tổng <code>i</code>. Ban đầu, gán tất cả các giá trị
+                                    là <code>1e9</code> (vô cực) trừ <code>dp[0] = 0</code>.</li>
+                                <li>🟡 <strong>Bước 2:</strong> Duyệt qua từng loại đồng xu và cập nhật
+                                    <code>dp[j]</code> với <code>dp[j] = min(dp[j], dp[j - coin] + 1)</code> nếu có thể
+                                    tạo thành tổng <code>j</code>.</li>
+                                <li>🔴 <strong>Bước 3:</strong> Nếu <code>dp[x]</code> vẫn là vô cực, in
+                                    <code>-1</code>. Ngược lại, in <code>dp[x]</code> là số đồng xu ít nhất cần dùng.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+
+                    <!--solution-->
+
+                    <div class="solution-card" onclick="toggleSolution(this)">
+                        <div class="solution-header"
+                            style="font-family: 'Times New Roman', Times, serif; font-size: 18px;">
+                            Solution
+                            <span class="toggle-icon">▼</span>
+                        </div>
+                        <div class="solution-content">
+                            <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                            <pre><code class="language-cpp stylecode">
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+ 
+ 
+typedef long long ll;
+typedef double db;
+#define fi first
+#define se second
+#define pb push_back
+#define ed cout << "\n"
+#define no cout << "NO\n"
+#define ye cout << "YES\n"
+#define FOR(i, l, r) for (int i = l; i <= r; i++)
+#define FOD(i, r, l) for (int i = r; i >= l; i--)
+#define FOB(i, l, r) for (int i = l; i < r; i++)
+#define mem(a, b) memset(a, b, sizeof(a))
+#define all(a) a.begin(), a.end()
+#define sz(A) (int)A.size()
+#define faster() ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL)
+#define debug(...) fprintf(stderr, __VA_ARGS__), fflush(stderr)
+const int N = 2e6 + 15;
+const int MOD = 1e9 + 7;
+const int INF = 1e5 + 1;
+const int mxn = 1000 + 15;
+ 
+int nxt() { int x; cin >> x; return x; }
+void add(int &a, int b) {
+//	a = (a + b) % MOD;
+    a = a + b;
+    if (a >= MOD) a = a - MOD;
+    if (a < 0) a = a + MOD;
+}
+void mul(int &a, int b) {
+    ll res = ((ll)a * b) % MOD;
+    a = res;
+}
+ 
+void Fami(int n, vector&lt;int&gt& a) {
+	
+}
+ 
+void solve() {
+	int n = nxt(), sz = nxt();
+	vector&lt;int&gtdp(sz + 1, 1e9);
+	vector&lt;int&gta(n);
+	for(auto &x : a) x = nxt();
+	dp[0] = 0; 
+	for(int i = 0; i < n; i++) {
+		for(int j = a[i]; j <= sz; j++) {
+			dp[j] = min(dp[j], dp[j - a[i]] + 1);
+		}
+	}
+	cout << ((dp[sz] == 1e9) ? -1 : dp[sz]) << endl;
+}
+ 
+int main() {
+    faster();
+    //freopen("input.INP", "r", stdin);
+   // freopen("output.OUT", "w", stdout);
+    int t; t = 1; 
+    //cin >> t;
+    while(t--){
+    	clock_t z = clock();
+    	solve();
+    	debug("Total Time: %.3f\n", (double)(clock() - z) / CLOCKS_PER_SEC);
+    	if(t != 0) ed;
+	}
+    return 0;
+}
+</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 2 -->
+            <div class="section fontext" id="section1">
+                <div class="section-header" onclick="toggleSection(this)"
+                    style="font-family: 'Times New Roman', Times, serif; font-size: 18px;">Bài toán 2: Subordinates
+                </div>
+                <div class="section-content">
+                    <div class="blog-tags">
+                        <p>Tag : </p>
+                        <span class="tag">Graph</span>
+                    </div>
+                    <!-- link -->
+                    <strong>Link bài toán: </strong><a
+                        href="https://cses.fi/problemset/task/1674">https://cses.fi/problemset/task/1674</a>
+                    <!-- de bai -->
+                    <div class="solution-card" onclick="toggleSolution(this)">
+                        <div class="solution-header">
+                            Tóm tắt đề bài
+                            <span class="toggle-icon">▼</span>
+                        </div>
+                        <div class="solution-content">
+                            <p>Cho một công ty với n nhân viên, mỗi nhân viên (trừ giám đốc) có một cấp trên trực tiếp.
+                            </p>
+                            <ul>
+                                <li>Nhiệm vụ: Tính số lượng cấp dưới của từng nhân viên.</li>
+                                <li>Nhân viên số 1 là giám đốc chung của công ty.</li>
+                            </ul>
+                            <p><strong>Input:</strong></p>
+                            <ul>
+                                <li>Dòng đầu chứa số nguyên n - số nhân viên.</li>
+                                <li>Dòng thứ hai chứa n-1 số nguyên, trong đó số thứ i là cấp trên trực tiếp của nhân
+                                    viên i+1.</li>
+                            </ul>
+                            <p><strong>Output:</strong></p>
+                            <ul>
+                                <li>In ra n số nguyên, số thứ i là số cấp dưới của nhân viên i.</li>
+                            </ul>
+                            <p><strong>Ví dụ:</strong></p>
+                            <p><strong>Input:</strong></p>
+                            <pre>5
+1 1 2 3</pre>
+                            <p><strong>Output:</strong></p>
+                            <pre>4 1 1 0 0</pre>
+                            <p><strong>Giải thích:</strong></p>
+                            <ul>
+                                <li>Nhân viên 1 có 4 cấp dưới (gồm tất cả những nhân viên còn lại).</li>
+                                <li>Nhân viên 2 có 1 cấp dưới (nhân viên 3).</li>
+                                <li>Nhân viên 3 có 1 cấp dưới (nhân viên 4).</li>
+                                <li>Nhân viên 4 và 5 không có cấp dưới.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+
+                    <!-- loi giai -->
+                    <div class="solution-card" onclick="toggleSolution(this)">
+                        <div class="solution-header">
+                            Lời giải chi tiết
+                            <span class="toggle-icon">▼</span>
+                        </div>
+                        <div class="solution-content">
+                            <p>🔹 Bài này ta sử dụng DFS để tính số lượng cấp dưới của từng nhân viên.</p>
+                            <p><strong>Quy trình thực hiện:</strong></p>
+                            <ul style="list-style: none; padding-left: 0;">
+                                <li>🟢 <strong>Bước 1:</strong> Tạo danh sách kề lưu quan hệ sếp - nhân viên.</li>
+                                <li>🟡 <strong>Bước 2:</strong> Sử dụng DFS để duyệt từ giám đốc (nhân viên 1) xuống.
+                                </li>
+                                <li>🔵 <strong>Bước 3:</strong> Với mỗi nhân viên, tính tổng số lượng nhân viên cấp dưới
+                                    của họ.</li>
+                            </ul>
+                            <p><strong>Độ phức tạp:</strong> O(n), vì mỗi nhân viên chỉ được duyệt một lần.</p>
+                        </div>
+                    </div>
+
+
+                    <!--solution-->
+
+                    <div class="solution-card" onclick="toggleSolution(this)">
+                        <div class="solution-header"
+                            style="font-family: 'Times New Roman', Times, serif; font-size: 18px;">
+                            Solution
+                            <span class="toggle-icon">▼</span>
+                        </div>
+                        <div class="solution-content">
+                            <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                            <pre><code class="language-cpp stylecode">
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+ 
+#define faster() ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL)
+#define debug(...) fprintf(stderr, __VA_ARGS__), fflush(stderr)
+#define ed cout << "\n"
+const int N = 2e5 + 15;
+const int MOD = 1e9 + 7;
+const int INF = 1e9 + 1;
+const int mxn = 2000 + 15;
+using ll = long long;
+ 
+int dp[N];
+vector&lt;int&gt;adj[N];
+bool vis[N];
+int n, m;
+ 
+void dfs(int u) {
+	dp[u] = dp[u] + 1;
+	for(auto v : adj[u]) {
+		dfs(v);
+		dp[u] = dp[u] + dp[v];
+	}
+}
+ 
+void solve() {
+	cin >> n;
+	for(int i = 2; i <= n; i++) {
+		int x; cin >> x;
+		adj[x].push_back(i);
+	}
+	dfs(1);
+	for(int i = 1; i <= n; i++) cout << dp[i] - 1 << ' ';
+}
+ 
+ 
+int main() {
+    faster();
+    //freopen("input.INP", "r", stdin);
+   // freopen("output.OUT", "w", stdout);
+    int t; t = 1; 
+    //cin >> t;
+    while(t--){
+    	clock_t z = clock();
+    	solve();
+    	debug("Total Time: %.3f\n", (double)(clock() - z) / CLOCKS_PER_SEC);
+    	if(t != 0) ed;
+	}
+    return 0;
+}
+
+
+</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Section 3 -->
+            <div class="section fontext" id="section1">
+                <div class="section-header" onclick="toggleSection(this)"
+                    style="font-family: 'Times New Roman', Times, serif; font-size: 18px;">Bài toán 3: Static Range Sum
+                    Queries
+                </div>
+                <div class="section-content">
+                    <div class="blog-tags">
+                        <p>Tag : </p>
+                        <span class="tag">Segment tree </span>
+                        <span class="tag">BIT tree </span>
+                    </div>
+                    <!-- link -->
+                    <strong>Link bài toán: </strong><a
+                        href="https://cses.fi/problemset/task/1674/">https://cses.fi/problemset/task/1674/</a>
+                    <!--de bai-->
+                    <!--de bai-->
+                    <div class="solution-card" onclick="toggleSolution(this)">
+                        <div class="solution-header">
+                            Tóm tắt đề bài
+                            <span class="toggle-icon">▼</span>
+                        </div>
+                        <div class="solution-content">
+                            <p>Cho một mảng gồm <strong>n</strong> số nguyên và <strong>q</strong> truy vấn.</p>
+                            <ul>
+                                <li>Mỗi truy vấn yêu cầu tính tổng các phần tử trong khoảng <strong>[a, b]</strong>.
+                                </li>
+                            </ul>
+                            <p><strong>Input :</strong></p>
+                            <ul>
+                                <li>Dòng đầu gồm hai số nguyên <strong>n</strong> và <strong>q</strong> (số phần tử và
+                                    số truy vấn).</li>
+                                <li>Dòng thứ hai chứa <strong>n</strong> số nguyên là các phần tử của mảng.</li>
+                                <li>Mỗi trong <strong>q</strong> dòng tiếp theo chứa hai số <strong>a, b</strong> (chỉ
+                                    số bắt đầu và kết thúc của truy vấn).</li>
+                            </ul>
+                            <p><strong>Output :</strong> Với mỗi truy vấn, in ra tổng các phần tử trong khoảng
+                                <strong>[a, b]</strong>.</p>
+                            <p><strong>Ví dụ:</strong></p>
+                            <p><strong>Input:</strong></p>
+                            <pre>
+8 4
+3 2 4 5 1 1 5 3
+2 4
+5 6
+1 8
+3 3
+        </pre>
+                            <p><strong>Output:</strong></p>
+                            <pre>
+11
+2
+24
+4
+        </pre>
+                        </div>
+                    </div>
+
+
+                    <div class="solution-card" onclick="toggleSolution(this)">
+                        <!-- loi giai-->
+                        <div class="solution-header">
+                            Lời giải chi tiết
+                            <span class="toggle-icon">▼</span>
+                        </div>
+                        <div class="solution-content">
+                            <p>Bài này ta sử dụng cấu trúc dữ liệu <strong>Segment Tree</strong> để xử lý truy vấn nhanh
+                                chóng.</p>
+                            <ul style="list-style: none; padding-left: 0;">
+                                <li>🔹 <strong>Segment Tree</strong> cho phép tính tổng đoạn trong <code>O(log n)</code>
+                                    thay vì <code>O(n)</code> khi duyệt tuyến tính.</li>
+                                <li>🔹 Ta xây dựng cây trong <code>O(n)</code> và xử lý mỗi truy vấn trong
+                                    <code>O(log n)</code>.</li>
+                            </ul>
+
+                            <p><strong>Quy trình thực hiện:</strong></p>
+                            <ul style="list-style: none; padding-left: 0;">
+                                <li>🟢 <strong>Bước 1:</strong> Xây dựng cây bằng phương pháp chia đôi mảng (Build
+                                    Segment Tree).</li>
+                                <li>🟡 <strong>Bước 2:</strong> Khi có truy vấn tìm tổng đoạn <code>[l, r]</code>, ta
+                                    duyệt nhanh trên cây để lấy kết quả.</li>
+                                <li>🟠 <strong>Bước 3:</strong> Nếu cần cập nhật giá trị tại vị trí <code>pos</code>, ta
+                                    cập nhật trên cây để không cần xây lại toàn bộ.</li>
+                            </ul>
+
+                            <p><strong>Chi tiết thuật toán:</strong></p>
+                            <ul>
+                                <li>✔️ <strong>Xây dựng cây:</strong> Mỗi nút lưu tổng của một đoạn con.</li>
+                                <li>✔️ <strong>Truy vấn tổng đoạn:</strong> Nếu đoạn con nằm hoàn toàn trong
+                                    <code>[l, r]</code>, trả về ngay.</li>
+                                <li>✔️ <strong>Cập nhật phần tử:</strong> Cập nhật giá trị tại vị trí <code>pos</code>
+                                    và cập nhật lại cây.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+
+                    <!--solution-->
+
+                    <div class="solution-card" onclick="toggleSolution(this)">
+                        <div class="solution-header"
+                            style="font-family: 'Times New Roman', Times, serif; font-size: 18px;">
+                            Solution
+                            <span class="toggle-icon">▼</span>
+                        </div>
+                        <div class="solution-content">
+                            <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                            <pre><code class="language-cpp stylecode">
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+ 
+typedef long long ll;
+typedef double db;
+typedef unsigned long long ull;
+#define fi first
+#define se second
+#define pb push_back
+#define ed cout << "\n"
+#define no cout << "NO\n"
+#define ye cout << "YES\n"
+#define FOR(i,l,r) for (int i=l;i<=r;i++)
+#define FOD(i,r,l) for (int i=r;i>=l;i--)
+#define mem(a,b) memset(a, b, sizeof(a))
+#define all(a) a.begin(), a.end()
+#define sz(A) (int) A.size()
+#define faster() ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+const int N = 2e5 + 15;
+ 
+// #ifdef ONLINE_JUDGE
+//     ios::sync_with_stdio(false);
+//     cin.tie(nullptr);
+// #endif
+ 
+ll t[4 * N], a[N];
+int n, q;
+void build(int v, int tl, int tr) {
+    if(tl == tr) {
+        t[v] = a[tl];
+    } else {
+        int mid = (tl + tr) >> 1;
+        build(v << 1, tl, mid);
+        build(v << 1 | 1, mid + 1, tr);
+        t[v] = t[v << 1] + t[v << 1 | 1];
+    }
+}
+ 
+void update(int v, int tl, int tr, int pos, int val) {
+    if(tl == tr) {
+        t[v] = val;
+    } else {
+        int mid = (tl + tr) >> 1;
+        if(pos <= mid) {
+            update(v << 1, tl, mid, pos, val);
+        } else {
+            update(v << 1 | 1, mid + 1, tr, pos, val);
+        }
+        t[v] = t[v << 1] + t[v << 1 | 1];
+    }
+}
+ 
+ll query(int v, int tl, int tr, int l, int r) {
+    if(l > tr || r < tl) return 0;
+    if(l <= tl && tr <= r) {
+        return t[v];
+    } else {
+        int mid = (tl + tr) >> 1;
+        ll left = query(v << 1, tl, mid, l, r);
+        ll right = query(v << 1 | 1, mid + 1, tr, l, r);
+        return left + right;
+    }
+}
+ 
+void solve() {
+    cin >> n >> q;
+	for(int i = 0; i < n; i++) cin >> a[i];
+	build(1, 0, n - 1);
+    while(q--){
+		int x, y; cin >> x >> y;
+		x--; y--;
+		cout << query(1, 0, n - 1, x, y) << endl;
+	}
+}
+ 
+int main(){
+    faster()
+    solve();
+    return 0;
+}
+</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+</body>
+
+</html>
