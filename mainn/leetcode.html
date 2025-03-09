@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Leetcode Solution</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../StyleCSS/solution.css">
+    <script src="../JSCODE/Solution.js"></script>
+    <script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+        </script>
+    <script src="../JSCODE/HeadStyle.js"></script>
+</head>
+
+<body>
+    <header style="background: #f5b7b1;">
+        <h1 style="font-family: 'Times New Roman', Times, serif;">Leetcode Solution</h1>
+        <nav>
+            <a href="../index.html">Trang chủ</a>
+            <a href="../mainn/Blog.html">Blog</a>
+        </nav>
+    </header>
+    <div class="container">
+
+        <div class="sidebar">
+            <h3 style="font-family: 'Times New Roman', Times, serif; font-size: 18px;">Mục lục</h3>
+            <ul>
+                <li><a href="#section1">Bài toán 1: Maximum Sum With at Most K Elements</a></li>
+                <li><a href="#section2">Bài toán 2: Minimum Add to Make Parentheses Valid</a></li>
+                <li><a href="#section3">Bài toán 3: Trapping Rain Water</a></li>
+            </ul>
+        </div>
+        <!-- Main content -->
+        <div class="main">
+            <h2 style="font-family: 'Times New Roman', Times, serif;">Giải pháp của các bài tập trên Leetcode</h2>
+            <p><strong>Fact : </strong>Các bài tập trên Leetcode, nhìn chung dễ dàng cho người mới bắt đầu tham gia lập
+                trình thi đấu, cũng như rèn luyện cho các cuộc phỏng vấn tại các công ty Big tech</p>
+
+            <!-- Section 1 -->
+            <div class="section fontext" id="section1">
+                <div class="section-header" onclick="toggleSection(this)"
+                    style="font-family: 'Times New Roman', Times, serif; font-size: 18px;">Bài toán 1: Maximum Sum With
+                    at Most K Elements
+                </div>
+                <div class="section-content">
+                    <div class="blog-tags">
+                        <p>Tag : </p>
+                        <span class="tag">Priority_queue</span>
+                        <span class="tag">Sorting</span>
+                        <span class="tag">Greedy</span>
+                        <span class="tag">Medium</span>
+                    </div>
+                    <!-- link -->
+                    <strong>Link bài toán: </strong><a
+                        href="https://leetcode.com/problems/maximum-sum-with-at-most-k-elements/description/">https://leetcode.com/problems/maximum-sum-with-at-most-k-elements/description/</a>
+                    <!--de bai-->
+                    <div class="solution-card" onclick="toggleSolution(this)">
+                        <div class="solution-header">
+                            Tóm tắt đề bài
+                            <span class="toggle-icon">▼</span>
+                        </div>
+                        <div class="solution-content">
+                            <p>Cho ma trận 2D, tìm tổng lớn nhất k phần tử từ ma trận 2D</p>
+                            <ul>
+                                <li>Số lượng phần tử được lấy từ hàng không vượt quá limit[i]</li>
+                            </ul>
+                            <p><strong>Input :</strong> grid = [[1,2],[3,4]], limits = [1,2], k = 2 </p>
+                            <p><strong>Ouput :</strong> 7 </p>
+                            <p><strong>Giải thích : </strong></p>
+                            <ul>
+                                <li>Từ hàng thứ hai, ta có thể lấy nhiều nhất 2 phần tử. Các phần tử lấy được là 4 và 3.
+                                </li>
+                                <li>Tổng lớn nhất có thể của tối đa 2 phần tử được chọn là 4 + 3 = 7.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="solution-card" onclick="toggleSolution(this)">
+                        <!-- loi giai-->
+                        <div class="solution-header">
+                            Lời giải chi tiết
+                            <span class="toggle-icon">▼</span>
+                        </div>
+                        <div class="solution-content">
+                            <p> 🔹 Bài này ta sẽ sử dụng Priority_queue và sorting</p>
+                            <p style="margin-top: 5px;"><strong>Quy trình thực hiện:</strong></p>
+                            <ul style="list-style: none; padding-left: 0;">
+                                <li>🟢 <strong>Bước 1:</strong> tại mỗi hàng ta sẽ sort và lấy ra limit[i] phần tử lớn
+                                    nhất, cho vào priority_queue </li>
+                                <li>🟡 <strong>Bước 2:</strong> duyệt vòng for để lấy ra k giá trị lớn nhất từ
+                                    priority_queue</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!--solution-->
+
+                    <div class="solution-card" onclick="toggleSolution(this)">
+                        <div class="solution-header"
+                            style="font-family: 'Times New Roman', Times, serif; font-size: 18px;">
+                            Solution
+                            <span class="toggle-icon">▼</span>
+                        </div>
+                        <div class="solution-content">
+                            <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                            <pre><code class="language-cpp stylecode">
+class Solution {
+public:
+    long long maxSum(vector&lt;vector&lt;int&gt;&gt;& grid, vector&lt;int&gt;& limits, int k) {
+        if(k == 0) return 0;
+        long long total = 0, n = grid.size(), m = grid[0].size(), lid = 0;
+        priority_queue&lt;int&gt;pq;
+        for(int i = 0; i < n; i++) {
+            sort(grid[i].rbegin(), grid[i].rend());
+            for(int j = 0; j < min((int)grid[i].size(), limits[i]); j++) {
+                pq.push(grid[i][j]);
+            }
+        }
+        for(int i = 0; i < k; i++) {
+            total = total + pq.top();
+            pq.pop();
+        }
+       // cout << total << endl;
+        return total;
+    }
+};</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 2 -->
+            <div class="section fontext" id="section1">
+                <div class="section-header" onclick="toggleSection(this)"
+                    style="font-family: 'Times New Roman', Times, serif; font-size: 18px;">Bài toán 2: Minimum Add to
+                    Make Parentheses Valid</div>
+                <div class="section-content">
+                    <div class="blog-tags">
+                        <p>Tag : </p>
+                        <span class="tag">String</span>
+                        <span class="tag">stack</span>
+                        <span class="tag">Greedy</span>
+                        <span class="tag">Medium</span>
+                    </div>
+                    <!-- link -->
+                    <strong>Link bài toán: </strong><a
+                        href="https://leetcode.com/problems/minimum-add-to-make-parentheses-valid/description/">https://leetcode.com/problems/minimum-add-to-make-parentheses-valid/description/</a>
+                    <!--de bai-->
+                    <div class="solution-card" onclick="toggleSolution(this)">
+                        <div class="solution-header">
+                            Tóm tắt đề bài
+                            <span class="toggle-icon">▼</span>
+                        </div>
+                        <div class="solution-content">
+                            <p>Cho một chuỗi dấu ngoặc đơn s, mỗi lần di chuyển, bạn có thể chèn thêm một dấu ngoặc đơn
+                                vào bất kỳ vị trí nào trong chuỗi.</p>
+                            <ul>
+                                <li>Nhiệm vụ: Tìm số lần chèn tối thiểu để chuỗi trở thành một chuỗi hợp lệ.</li>
+                            </ul>
+                            <p><strong>Input :</strong> ()&#41;</p>
+                            <p><strong>Ouput :</strong> 1 </p>
+                            <p><strong>Giải thích : </strong> ta có thể chèn nó vào vị trí trước dấu ngoặc đầu tiên</p>
+                        </div>
+                    </div>
+
+                    <div class="solution-card" onclick="toggleSolution(this)">
+                        <!-- loi giai-->
+                        <div class="solution-header">
+                            Lời giải chi tiết
+                            <span class="toggle-icon">▼</span>
+                        </div>
+                        <div class="solution-content">
+                            <p>Bài này ta sử dụng thuật toán tham lam</p>
+                            <ul>
+                                <li>nếu có 1 dấu &#40;, ta tăng số lượng open lên 1</li>
+                                <li>nếu có 1 dấu &#41;, ta giảm số lượng open với đk : (open > 0) còn không ta sẽ tăng
+                                    số lượng dấu close</li>
+                            </ul>
+                            <p><strong>Quy trình thực hiện:</strong></p>
+                            <ul style="list-style: none; padding-left: 0;">
+                                <li>🟢<strong>Bước 1 : </strong> ta sử khởi tạo 2 biến close và open lần lượt = 0</li>
+                                <li>🟡<strong>Bước 2 : </strong> làm theo các điều nêu bên trên, và kết quả chính là số
+                                    lượng ngoặc đóng + mở, còn thiếu trong chuỗi</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!--solution-->
+
+                    <div class="solution-card" onclick="toggleSolution(this)">
+                        <div class="solution-header"
+                            style="font-family: 'Times New Roman', Times, serif; font-size: 18px;">
+                            Solution
+                            <span class="toggle-icon">▼</span>
+                        </div>
+                        <div class="solution-content">
+                            <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                            <pre><code class="language-cpp stylecode">
+class Solution {
+public:
+    int minAddToMakeValid(string s) {
+        int open = 0, del = 0, close = 0;
+        for(int i = 0; i < s.length(); i++) {
+            if&#40;s[i] == '(') {
+                open++;
+            } else {
+                if(open > 0) {
+                    open--;
+                } else {
+                    close++;
+                }
+            }
+        }
+        return open + close;
+    }
+};
+
+</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Section 3 -->
+            <div class="section fontext" id="section1">
+                <div class="section-header" onclick="toggleSection(this)"
+                    style="font-family: 'Times New Roman', Times, serif; font-size: 18px;">Bài toán 3: Trapping Rain
+                    Water
+                </div>
+                <div class="section-content">
+                    <div class="blog-tags">
+                        <p>Tag : </p>
+                        <span class="tag">Dynamic Programming</span>
+                        <span class="tag">Two pointer</span>
+                        <span class="tag">Stack</span>
+                        <span class="tag">Hard</span>
+                    </div>
+                    <!-- link -->
+                    <strong>Link bài toán: </strong><a
+                        href="http://fleetcode.com/problems/trapping-rain-water/description/">http://fleetcode.com/problems/trapping-rain-water/description/</a>
+                    <!--de bai-->
+                    <div class="solution-card" onclick="toggleSolution(this)">
+                        <div class="solution-header">
+                            Tóm tắt đề bài
+                            <span class="toggle-icon">▼</span>
+                        </div>
+                        <div class="solution-content">
+                            <p>Cho n các số nguyên không âm biểu diễn bản đồ độ cao, trong đó chiều rộng của mỗi thanh
+                                là 1, hãy tính lượng nước mà thanh có thể giữ lại sau khi mưa.</p>
+                            <p><strong>Input :</strong> height = [0,1,0,2,1,0,1,3,2,1,2,1]</p>
+                            <p><strong>Ouput :</strong> 6 </p>
+                            <p><strong>Giải thích : </strong> bạn hãy bấm vào link để xem kỹ hình ảnh hơn</p>
+                        </div>
+                    </div>
+
+                    <div class="solution-card" onclick="toggleSolution(this)">
+                        <!-- loi giai-->
+                        <div class="solution-header">
+                            Lời giải chi tiết
+                            <span class="toggle-icon">▼</span>
+                        </div>
+                        <div class="solution-content">
+                            <p> Bài này ta sử dụng 2 vector left và right, lần lượt di chuyển tử từ trái và phải qua 2
+                                bên, để kiếm cột lớn nhất bên trái và lớn nhất bên phải</p>
+                            <ul style="list-style: none; padding-left: 0;">
+                                <li>🔹 <strong>Ta có công thức để tính left và right là : </strong></li>
+                                <ul style="list-style: none; padding-left: 20px; margin-top: 10px;">
+                                    <li>✔️ <span class="formula">coleft[i] = max(coleft[i - 1], a[i]);</span></li>
+                                    <li style="margin-top: 5px;">✔️ <span class="formula">colright[i] = max(colright[i +
+                                            1], a[i]);</span></li>
+                                </ul>
+                                </li>
+                            </ul>
+
+                            <p><strong>Quy trình thực hiện:</strong></p>
+                            <ul style="list-style: none; padding-left: 0;">
+                                <li>🟢 <strong>Bước 1:</strong> với mỗi lần duyệt qua một cột, ta sẽ tìm cột nhỏ, bên
+                                    trái nhất và bên phải nhất, vì đó là giới hạn để lượng nước có thể ở trong bể mà
+                                    không bị tràn ra</li>
+                                <li>🟡 <strong>Bước 2:</strong> trừ cho giá trị <code> a[i] </code> tại cột hiện tại để
+                                    biết lượng nước còn lại trong cột a[i]</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!--solution-->
+
+                    <div class="solution-card" onclick="toggleSolution(this)">
+                        <div class="solution-header"
+                            style="font-family: 'Times New Roman', Times, serif; font-size: 18px;">
+                            Solution
+                            <span class="toggle-icon">▼</span>
+                        </div>
+                        <div class="solution-content">
+                            <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                            <pre><code class="language-cpp stylecode">
+class Solution {
+public:
+    int trap(vector&lt;int&gt;& a) {
+        int n = a.size(), water = 0;;
+        vector&lt;int&gt;coleft(n, a[0]), colright(n, a[n - 1]);
+        for(int i = 1; i < n; i++) {
+            coleft[i] = max(coleft[i - 1], a[i]);
+        }
+        for(int i = n - 2; i >= 0; i--) {
+            colright[i] = max(colright[i + 1], a[i]);
+        }
+        for(int i = 0; i < n; i++) {
+            water = water + min(coleft[i], colright[i]) - a[i];
+        }
+        return water;
+    }
+};</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+</body>
+
+</html>

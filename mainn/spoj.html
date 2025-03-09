@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SPOJ Solution</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../StyleCSS/solution.css">
+    <script src="../JSCODE/Solution.js"></script>
+    <script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+        </script>
+    <script src="../JSCODE/HeadStyle.js"></script>
+</head>
+
+<body>
+    <header style="background: #d2b4de ">
+        <h1 style="font-family: 'Times New Roman', Times, serif;">SPOJ Solution</h1>
+        <nav>
+            <a href="../index.html">Trang chủ</a>
+            <a href="../mainn/Blog.html">Blog</a>
+        </nav>
+    </header>
+    <div class="container">
+
+        <div class="sidebar">
+            <h3 style="font-family: 'Times New Roman', Times, serif; font-size: 18px;">Mục lục</h3>
+            <ul>
+                <li><a href="#section1">Bài toán 1: NHAY - A Needle in the Haystack</a></li>
+                <li><a href="#section2">Bài toán 2: KNAPSACK - The Knapsack Problem</a></li>
+                <li><a href="#section3">Bài toán 3: PR003004 - Digit Sum</a></li>
+            </ul>
+        </div>
+        <!-- Main content -->
+        <div class="main">
+            <h2 style="font-family: 'Times New Roman', Times, serif;">Giải pháp của các bài tập trên SPOJ</h2>
+            <p><strong>Fact : </strong>Các bài tập trên SPOJ, cũng giống như codeforces, nhưng có thể đề bài sẽ dễ hiểu
+                hơn nhiều</p>
+
+            <!-- Section 1 -->
+            <div class="section fontext" id="section1">
+                <div class="section-header" onclick="toggleSection(this)"
+                    style="font-family: 'Times New Roman', Times, serif; font-size: 18px;">Bài toán 1: NHAY - A Needle
+                    in the Haystack
+                </div>
+                <div class="section-content">
+                    <div class="blog-tags">
+                        <p>Tag : </p>
+                        <span class="tag">Hash</span>
+                        <span class="tag">String</span>
+                    </div>
+                    <!-- link -->
+                    <strong>Link bài toán: </strong><a
+                        href="https://www.spoj.com/problems/NHAY/">https://www.spoj.com/problems/NHAY/</a>
+                    <!--de bai-->
+                    <div class="solution-card" onclick="toggleSolution(this)">
+                        <div class="solution-header">
+                            Tóm tắt đề bài
+                            <span class="toggle-icon">▼</span>
+                        </div>
+                        <div class="solution-content">
+                            <p>Cho hai chuỗi **needle** và **haystack**, tìm tất cả vị trí xuất hiện của **needle**
+                                trong **haystack**.</p>
+                            <p><strong>Ví dụ:</strong></p>
+                            <p><strong>Input:</strong></p>
+                            <pre>
+2
+na
+banananobano
+                            </pre>
+                            <p><strong>Output: </strong></p>
+                            <pre>
+2
+4
+</pre>
+                            </pre>
+                            <p><strong>Giải thích:</strong> "na" xuất hiện tại vị trí **2** và **4**.</p>
+                        </div>
+                    </div>
+
+
+                    <div class="solution-card" onclick="toggleSolution(this)">
+                        <div class="solution-header">
+                            Lời giải chi tiết
+                            <span class="toggle-icon">▼</span>
+                        </div>
+                        <div class="solution-content">
+                            <p>🔹 Bài toán sử dụng **Hashing (Rolling Hash)** để tìm kiếm chuỗi con nhanh chóng.</p>
+                            <p><strong>Ý tưởng chính:</strong></p>
+                            <ul>
+                                <li>**Tiền xử lý**: Tính giá trị hash của chuỗi **needle** và prefix hash của
+                                    **haystack**.</li>
+                                <li>Sử dụng công thức **getHash(l, r)** để lấy hash của từng đoạn con trong
+                                    **haystack**.</li>
+                                <li>So sánh hash để tìm tất cả vị trí khớp với **needle**.</li>
+                            </ul>
+                            <p><strong>Quy trình thực hiện:</strong></p>
+                            <ul style="list-style: none; padding-left: 0;">
+                                <li>🟢 <strong>Bước 1:</strong> Tiền xử lý mảng **Pow** (lũy thừa của base) và **Hash**
+                                    (prefix hash của **haystack**).</li>
+                                <li>🟡 <strong>Bước 2:</strong> Duyệt từng vị trí trong **haystack**, so sánh hash với
+                                    **needle**.</li>
+                                <li>🔴 <strong>Bước 3:</strong> Nếu khớp, in ra vị trí xuất hiện.</li>
+                            </ul>
+                            <p><strong>Độ phức tạp:</strong> O(n + m), nhanh hơn nhiều so với phương pháp brute-force.
+                            </p>
+                        </div>
+                    </div>
+
+
+                    <!--solution-->
+
+                    <div class="solution-card" onclick="toggleSolution(this)">
+                        <div class="solution-header"
+                            style="font-family: 'Times New Roman', Times, serif; font-size: 18px;">
+                            Solution
+                            <span class="toggle-icon">▼</span>
+                        </div>
+                        <div class="solution-content">
+                            <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                            <pre><code class="language-cpp stylecode">
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+ 
+typedef long long ll;
+#define ed cout << "\n"
+#define mem(a,b) memset(a, b, sizeof(a))
+#define all(a) a.begin(), a.end()
+#define sz(A) (int) A.size()
+#define faster() ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+ 
+const ll MOD = 1e9 + 9;
+const int base = 31;
+vector&lt;ll&gt;Hash, Pow;
+string a, b;
+ll n, m, k, HashA, ok;
+ 
+void __init__() {
+    a = ' ' + a;
+    b = ' ' + b;
+    n = a.length() - 1, m = b.length() - 1;
+    Hash.assign(m + 1, 0);
+    Pow.assign(m + 1, 0);
+    Pow[0] = 1; HashA = 0; ok = 0;
+    for(int i = 1; i <= m; i++) {
+        Pow[i] = (Pow[i - 1] * base) % MOD;
+        Hash[i] = (Hash[i - 1] * base + (b[i] - 'a' + 1)) % MOD;
+    }
+    for(int i = 1; i <= n; i++) {
+        HashA = (HashA * base + (a[i] - 'a' + 1)) % MOD;
+    }
+}
+ 
+ll getHash(int l, int r) {
+    return (Hash[r] - Hash[l - 1] * Pow[r - l + 1] % MOD + MOD) % MOD;
+}
+ 
+void solve() {
+    while(cin >> n) {
+        cin >> a >> b;
+        __init__();
+        for(int i = 1; i <= m - n + 1; i++) {
+            if(getHash(i, i + n - 1) == HashA) {
+                cout << i - 1 << endl;
+                ok = 1;
+            }
+        }
+        if(!ok) ed;
+    }
+}
+ 
+int main(){
+    faster();
+    solve();
+    return 0;
+}  </code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 2 -->
+            <div class="section fontext" id="section1">
+                <div class="section-header" onclick="toggleSection(this)"
+                    style="font-family: 'Times New Roman', Times, serif; font-size: 18px;">Bài toán 2: KNAPSACK - The
+                    Knapsack Problem</div>
+                <div class="section-content">
+                    <div class="blog-tags">
+                        <p>Tag : </p>
+                        <span class="tag">Dynamic programming</span>
+                    </div>
+                    <!-- link -->
+                    <strong>Link bài toán: </strong><a
+                        href="https://www.spoj.com/problems/KNAPSACK/">https://www.spoj.com/problems/KNAPSACK/</a>
+                    <!--de bai-->
+                    <div class="solution-card" onclick="toggleSolution(this)">
+                        <div class="solution-header">
+                            Tóm tắt đề bài
+                            <span class="toggle-icon">▼</span>
+                        </div>
+                        <div class="solution-content">
+                            <p>Cho một cái túi có sức chứa **S** và **N** món đồ, mỗi món có kích thước và giá trị.</p>
+                            <ul>
+                                <li>Nhiệm vụ: Chọn một tập hợp đồ sao cho tổng giá trị lớn nhất mà không vượt quá sức
+                                    chứa.</li>
+                            </ul>
+                            <p><strong>Input:</strong></p>
+                            <pre>
+4 5
+1 8
+2 4
+3 0
+2 5
+2 3
+</pre>
+                            <p><strong>Output:</strong></p>
+                            <pre>
+13
+</pre>
+                            <p><strong>Giải thích:</strong> Chọn các món có giá trị 8, 5, tổng giá trị lớn nhất là
+                                **13**.</p>
+                        </div>
+                    </div>
+                    <div class="solution-card" onclick="toggleSolution(this)">
+                        <div class="solution-header">
+                            Lời giải chi tiết
+                            <span class="toggle-icon">▼</span>
+                        </div>
+                        <div class="solution-content">
+                            <p>Bài này sử dụng quy hoạch động (Dynamic Programming) để giải bài toán Knapsack.</p>
+                            <ul>
+                                <li>Ta tạo một mảng **dp[i][j]** đại diện cho giá trị lớn nhất có thể đạt được với **i**
+                                    món đồ và sức chứa **j**.</li>
+                                <li>Nếu không chọn món thứ **i**, giá trị vẫn là **dp[i-1][j]**.</li>
+                                <li>Nếu chọn món thứ **i** (nếu vừa túi), ta cập nhật giá trị lớn hơn giữa **dp[i][j]**
+                                    và **dp[i-1][j - w[i]] + v[i]**.</li>
+                            </ul>
+                            <p><strong>Quy trình thực hiện:</strong></p>
+                            <ul style="list-style: none; padding-left: 0;">
+                                <li>🟢<strong>Bước 1:</strong> Khởi tạo mảng **dp** với giá trị ban đầu bằng 0.</li>
+                                <li>🟡<strong>Bước 2:</strong> Duyệt qua từng món đồ, cập nhật giá trị lớn nhất có thể
+                                    đạt được.</li>
+                                <li>🟠<strong>Bước 3:</strong> In ra kết quả là giá trị lớn nhất tìm được.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+
+                    <!--solution-->
+
+                    <div class="solution-card" onclick="toggleSolution(this)">
+                        <div class="solution-header"
+                            style="font-family: 'Times New Roman', Times, serif; font-size: 18px;">
+                            Solution
+                            <span class="toggle-icon">▼</span>
+                        </div>
+                        <div class="solution-content">
+                            <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                            <pre><code class="language-cpp stylecode">
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+typedef long long ll;
+#define mem(a, b) memset(a, b, sizeof(a))
+#define all(a) a.begin(), a.end()
+#define sz(A) (int)A.size()
+#define faster() ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL)
+const int N = 2e6 + 15;
+const int MOD = 1e9 + 7;
+const int INF = 1e5 + 1;
+const int mxn = 1000 + 15;
+ 
+vector&lt;vector&lt;int&gt;&gt;dp;
+vector&lt;int&gt;w, v;
+int n, sz, ans = -1;
+void solve() {
+	cin >> sz >> n;
+	dp.assign(n + 1, vector<int>(sz + 1, 0));
+	w.assign(n + 1, 0);
+	v.assign(n + 1, 0);
+	for(int i = 1; i <= n; i++) cin >> w[i] >> v[i];
+	for(int i = 1; i <= n; i++) {
+		for(int j = 1; j <= sz; j++) { 
+			dp[i][j] = dp[i - 1][j];
+			if(w[i] > j) continue;
+			dp[i][j] = max(dp[i][j], dp[i - 1][j - w[i]] + v[i]);             
+			ans = max(ans, dp[i][j]);                 
+		}
+	}
+	cout << ans << endl;
+}
+int main() {
+    faster();
+    //freopen("input.INP", "r", stdin);
+   // freopen("output.OUT", "w", stdout);
+    int t; t = 1; 
+    //cin >> t;
+    while(t--){
+    	clock_t z = clock();
+    	solve();
+    	debug("Total Time: %.3f\n", (double)(clock() - z) / CLOCKS_PER_SEC);
+    	if(t != 0) ed;
+	}
+    return 0;
+}
+</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Section 3 -->
+            <div class="section fontext" id="section1">
+                <div class="section-header" onclick="toggleSection(this)"
+                    style="font-family: 'Times New Roman', Times, serif; font-size: 18px;">Bài toán 3: PR003004 - Digit
+                    Sum
+                </div>
+                <div class="section-content">
+                    <div class="blog-tags">
+                        <p>Tag : </p>
+                        <span class="tag">Dynamic Programming</span>
+                        <span class="tag">Math</span>
+                    </div>
+                    <!-- link -->
+                    <strong>Link bài toán: </strong><a
+                        href="https://www.spoj.com/problems/PR003004/">https://www.spoj.com/problems/PR003004/</a>
+                    <!--de bai-->
+                    <div class="solution-card" onclick="toggleSolution(this)">
+                        <div class="solution-header">
+                            Tóm tắt đề bài
+                            <span class="toggle-icon">▼</span>
+                        </div>
+                        <div class="solution-content">
+                            <p>Cho hai số nguyên không âm **a** và **b**, tính tổng tất cả các chữ số xuất hiện trong
+                                khoảng **[a, b]**.</p>
+                            <p><strong>Input :</strong></p>
+                            <pre>
+a = 28, b = 31
+</pre>
+                            <p><strong>Output :</strong></p>
+                            <pre>
+28
+</pre>
+                            <p><strong>Giải thích :</strong> 2+8 + 2+9 + 3+0 + 3+1 = 28</p>
+                        </div>
+                    </div>
+
+                    <div class="solution-card" onclick="toggleSolution(this)">
+                        <div class="solution-header">
+                            Lời giải chi tiết
+                            <span class="toggle-icon">▼</span>
+                        </div>
+                        <div class="solution-content">
+                            <p> Bài này sử dụng kỹ thuật **quy hoạch động số học (Digit DP)** để tính tổng chữ số của
+                                tất cả các số trong khoảng **[a, b]** một cách hiệu quả.</p>
+                            <ul style="list-style: none; padding-left: 0;">
+                                <li>🔹 <strong>Ý tưởng chính:</strong></li>
+                                <ul style="list-style: none; padding-left: 20px; margin-top: 10px;">
+                                    <li>✔️ **Tính tổng chữ số của tất cả các số từ 1 đến x** bằng phương pháp đệ quy với
+                                        nhớ trạng thái (Memoization).</li>
+                                    <li>✔️ Sau đó, tổng chữ số của **[a, b]** chính là hiệu của tổng chữ số từ **1 đến
+                                        b** trừ đi tổng chữ số từ **1 đến a-1**.</li>
+                                </ul>
+                            </ul>
+
+                            <p><strong>Quy trình thực hiện:</strong></p>
+                            <ul style="list-style: none; padding-left: 0;">
+                                <li>🟢 <strong>Bước 1:</strong> Chuyển số **x** thành mảng chữ số.</li>
+                                <li>🟡 <strong>Bước 2:</strong> Dùng **quy hoạch động** để duyệt từng chữ số từ trái
+                                    sang phải, giữ trạng thái tổng chữ số và kiểm soát giới hạn.</li>
+                                <li>🟠 <strong>Bước 3:</strong> Kết quả cuối cùng là **getSum(b) - getSum(a-1)**.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!--solution-->
+
+                    <div class="solution-card" onclick="toggleSolution(this)">
+                        <div class="solution-header"
+                            style="font-family: 'Times New Roman', Times, serif; font-size: 18px;">
+                            Solution
+                            <span class="toggle-icon">▼</span>
+                        </div>
+                        <div class="solution-content">
+                            <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                            <pre><code class="language-cpp stylecode">
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+ 
+typedef long long ll;
+#define mem(a,b) memset(a, b, sizeof(a))
+#define all(a) a.begin(), a.end()
+#define sz(A) (int) A.size()
+#define faster() ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+const int N = 1e5 + 15;
+ 
+int64_t dp[19][180][2];
+ll q, l, r;
+ 
+int64_t f(vector&lt;int&gt;& a, int pos, int sum, int fl) {
+    if(pos >= a.size()) return sum;
+    int64_t &nemo = dp[pos][sum][fl];
+    if(nemo != -1) return nemo;
+    int limit = fl ? a[pos] : 9;
+    nemo = 0;
+    for(int i = 0; i <= limit; i++) {
+        nemo = nemo + f(a, pos + 1, sum + i, fl && (i == limit));
+    }
+    return nemo;
+}
+ 
+vector&lt;int&gt; getDigits(ll x) {
+    vector&lt;int&gt;nums;
+    while(x) {
+        nums.push_back(x % 10);
+        x = x / 10;
+    }
+    reverse(all(nums));
+    return nums;
+}
+ 
+int64_t getSum(ll x) {
+    if(x <= 0) return 0;
+    mem(dp, -1);
+    vector&lt;int&gt;digits = getDigits(x);
+    return f(digits, 0, 0, 1);
+}
+ 
+int main(){
+    faster()
+    cin >> q;
+    while(q--) {
+        cin >> l >> r;
+        cout << getSum(r) - getSum(l - 1) << endl;
+    }
+    return 0;
+} </code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+</body>
+
+</html>

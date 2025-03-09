@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Codeforces Solution</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="../StyleCSS/solution.css">
+  <script src="../JSCODE/Solution.js"></script>
+  <script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+  <script src="../JSCODE/HeadStyle.js"></script>
+</head>
+
+<body>
+  <header style="background: #a9dfbf;">
+    <h1 style="font-family: 'Times New Roman', Times, serif;">Codeforces Solution</h1>
+    <nav>
+      <a href="../index.html">Trang chủ</a>
+      <a href="../mainn/Blog.html">Blog</a>
+    </nav>
+  </header>
+  <div class="container">
+
+    <div class="sidebar">
+      <h3 style="font-family: 'Times New Roman', Times, serif; font-size: 18px;">Mục lục</h3>
+      <ul>
+        <li><a href="#section1">Bài toán 1: A. Cut Ribbon</a></li>
+        <li><a href="#section2">Bài toán 2: B. Password</a></li>
+        <li><a href="#section3">Bài toán 3: C. Vlad and a Sum of Sum of Digits</a></li>
+      </ul>
+    </div>
+    <!-- Main content -->
+    <div class="main">
+      <h2 style="font-family: 'Times New Roman', Times, serif;">Giải pháp của các bài tập trên Codeforces</h2>
+      <p><strong>Fact : </strong>Các bài tập trên Codeforces, nhìn chung khó hơn các bài tập trên Leetcode và cần sử
+        dụng nhiều tư duy hơn, nhưng không phải tất cả.</p>
+
+      <!-- Section 1 -->
+      <div class="section fontext" id="section1">
+        <div class="section-header" onclick="toggleSection(this)"
+          style="font-family: 'Times New Roman', Times, serif; font-size: 18px;">Bài toán 1: A. Cut Ribbon</div>
+        <div class="section-content">
+          <div class="blog-tags">
+            <p>Tag : </p>
+            <span class="tag">Dynamic Programming</span>
+            <span class="tag">Brute force</span>
+            <span class="tag">1300</span>
+          </div>
+          <!-- link -->
+          <strong>Link bài toán: </strong><a
+            href="https://codeforces.net/contest/189/problem/A">https://codeforces.net/contest/189/problem/A</a>
+          <!--de bai-->
+          <div class="solution-card" onclick="toggleSolution(this)">
+            <div class="solution-header">
+              Tóm tắt đề bài
+              <span class="toggle-icon">▼</span>
+            </div>
+            <div class="solution-content">
+              <p>Cho dải ruy băng chiều dài n, và 3 số a, b, c. Bạn cần tìm số mảnh vải a,
+                b, c mà nó có thể cắt đúng thành dải duy băng n</p>
+              <p><strong>Input :</strong></p>
+              <pre>
+5 5 3 2
+              </pre>
+              <p><strong>Ouput :</strong></p>
+              <pre>
+2
+              </pre>
+              <p><strong>Giải thích : </strong> miếng vải b và c lần lượt là 3 và 2, 2 miếng vải này cộng lại đủ thành
+                chiều
+                dài ruy băng chiều dài n</p>
+            </div>
+          </div>
+
+          <div class="solution-card" onclick="toggleSolution(this)">
+            <!-- loi giai-->
+            <div class="solution-header">
+              Lời giải chi tiết
+              <span class="toggle-icon">▼</span>
+            </div>
+            <div class="solution-content">
+              <p><strong>Bài này sử dụng Dynamic Programming</strong>, vì giới hạn bài khá nhỏ (1 ≤ n, a, b, c ≤ 4000).
+              </p>
+              <p>Gọi trạng thái <code>dp[i]</code> là số đoạn tối đa có thể tạo thành tổng <code>i</code>.</p>
+
+              <ul style="list-style: none; padding-left: 0;">
+                <li>🔹 <strong> Công thức truy
+                    hồi : </strong> <span class="formula">dp[i] = max(dp[i], dp[i - a] + 1)</span></li>
+
+                <li>🔹 Để tạo tổng <code>i</code> hợp lệ:
+                  <ul style="list-style: none; padding-left: 20px;">
+                    <li>✔️ Nếu <code>dp[i - a]</code> đã được chọn → <code>dp[i - a] ∈ {a, b, c}</code></li>
+                    <li>❌ Nếu <code>dp[i - a]</code> chưa được chọn → <code>dp[i - a] ∉ {a, b, c}</code></li>
+                  </ul>
+                </li>
+              </ul>
+
+              <p><strong>Quy trình thực hiện:</strong></p>
+              <ul style="list-style: none; padding-left: 0;">
+                <li>🟢 <strong>Bước 1:</strong> Khởi tạo <code>dp</code> với giá trị <code>-1</code> (chưa có mảnh vải
+                  hợp lệ).</li>
+                <li>🟡 <strong>Bước 2:</strong> Đặt <code>dp[0] = 0</code> vì không cần chọn bất kỳ đoạn nào.</li>
+                <li>🔵 <strong>Bước 3:</strong> Duyệt qua các giá trị <code>i</code> từ <code>1 → n</code> để tính toán
+                  tối ưu.</li>
+              </ul>
+
+            </div>
+          </div>
+
+          <!--solution-->
+
+          <div class="solution-card" onclick="toggleSolution(this)">
+            <div class="solution-header" style="font-family: 'Times New Roman', Times, serif; font-size: 18px;">
+              Solution
+              <span class="toggle-icon">▼</span>
+            </div>
+            <div class="solution-content">
+              <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+              <pre><code class="language-cpp stylecode">
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+#define mem(a,b) memset(a, b, sizeof(a))
+#define all(a) a.begin(), a.end()
+#define sz(A) (int) A.size()
+#define faster() ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+const int N = 1e5 + 15;
+int dp[4004];
+void __init__() {mem(dp, -1); dp[0] = 0;} 
+void solve() {
+    __init__();
+    int n, a, b, c;
+    cin >> n >> a >> b >> c;
+    for(int i = 1; i <= n; i++) {
+        if(i >= a && dp[i - a] != -1) dp[i] = max(dp[i], dp[i - a] + 1);
+        if(i >= b && dp[i - b] != -1) dp[i] = max(dp[i], dp[i - b] + 1);
+        if(i >= c && dp[i - c] != -1) dp[i] = max(dp[i], dp[i - c] + 1);
+    }
+    cout << dp[n] << endl;
+}
+      
+int main(){
+    faster()
+    solve();
+    return 0;
+}</code></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 2 -->
+      <div class="section fontext" id="section1">
+        <div class="section-header" onclick="toggleSection(this)"
+          style="font-family: 'Times New Roman', Times, serif; font-size: 18px;">Bài toán 2: B. Password</div>
+        <div class="section-content">
+          <div class="blog-tags">
+            <p>Tag : </p>
+            <span class="tag">Dynamic Programming</span>
+            <span class="tag">hashing</span>
+            <span class="tag">Binary Search</span>
+            <span class="tag">1700</span>
+          </div>
+          <!-- link -->
+          <strong>Link bài toán: </strong><a
+            href="https://codeforces.com/contest/126/problem/B">https://codeforces.com/contest/126/problem/B</a>
+          <!--de bai-->
+          <div class="solution-card" onclick="toggleSolution(this)">
+            <div class="solution-header">
+              Tóm tắt đề bài
+              <span class="toggle-icon">▼</span>
+            </div>
+            <div class="solution-content">
+              <p>Cho một chuỗi s, cần tìm chuỗi con t thỏa mãn: </p>
+              <ul>
+                <li>t là tiền tố của s (bắt đầu chuỗi).</li>
+                <li>t là hậu tố của s (kết thúc chuỗi).</li>
+                <li>t có chuỗi con ở giữa trùng với hậu tố và tiền tố</li>
+                <li>Trong các chuỗi thỏa mãn, chọn chuỗi dài nhất. Nếu không có, trả về "Just a legend".</li>
+              </ul>
+              <p><strong>Input :</strong></p>
+              <pre>
+fixprefixsuffix
+              </pre>
+              <p><strong>Ouput :</strong></p>
+              <pre>
+fix
+              </pre>
+              <p><strong>Giải thích : </strong> vì fix là tiền tố xuất hiện ở đầu chuỗi, giữa chuỗi và cả ở kết thúc
+                chuỗi.</p>
+            </div>
+          </div>
+
+          <div class="solution-card" onclick="toggleSolution(this)">
+            <!-- loi giai-->
+            <div class="solution-header">
+              Lời giải chi tiết
+              <span class="toggle-icon">▼</span>
+            </div>
+            <div class="solution-content">
+              <p>Bài này sử dụng Hash string, KMP, Z-Function,..., nhưng mình sẽ dùng Hash string, vì
+                dễ cài đặt và rất dễ sử dụng
+              </p>
+              <p>Gọi <code>k</code> là độ dài chuỗi con của chuỗi s <code>(1 -> s.length())</code>.</p>
+              <ul style="list-style: none; padding-left: 0;">
+                <li>🔹 <strong>Ta sẽ có công thức Tiền tố và Hậu tố lần lượt là</strong></li>
+                <ul style="list-style: none; padding-left: 20px; margin-top: 10px;">
+                  <li>✔️ Tiền tố <span class="formula">getHash(1, k)</span></li>
+                  <li style="margin-top: 10px;">✔️ Hậu tố <span class="formula">getHash(n - k + 1, n)</span></li>
+                </ul>
+                </li>
+              </ul>
+
+              <p><strong>Quy trình thực hiện:</strong></p>
+              <ul style="list-style: none; padding-left: 0;">
+                <li>🟢 <strong>Bước 1:</strong> Khởi tạo <code>Pow và Hash</code> strong hàm __init__() và hàm getHash()
+                  lấy giá trị truy vấn</li>
+                <li>🟡 <strong>Bước 2:</strong>Duyệt qua các giá trị <code>k</code> từ <code>1 → n</code> để lấy các
+                  đoạn Tiền tố và Hậu tố có giá trị truy vấn bằng nhau và cho vào 1 vector, sắp xếp theo thứ tự giảm
+                  dần, vì ta cần lấy chuỗi dài nhất và tránh bị timelimit.</li>
+                <li>🔵 <strong>Bước 3:</strong>Duyệt qua các giá trị <code>i</code> từ <code>2 → n - k</code> để kiểm
+                  tra có tồn tại 1 chuỗi con k ở giữa, có cả hậu tố và tiền tố không
+                  bằng cách so sánh getHash(i, i + k - 1) == getHash(1, k) lần lượt là đoạn con cần tìm(ở giữa) và tiền
+                  tố có độ dài là k.</li>
+                <li>🔴 <strong>Bước 4:</strong>Nếu tìm thấy thì output kết quả và thoát khỏi chương trình, ta cần duyệt
+                  theo thứ tự
+                  giảm dần để không cần duyệt các giá trị nhỏ hơn, gây time limit.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!--solution-->
+
+          <div class="solution-card" onclick="toggleSolution(this)">
+            <div class="solution-header" style="font-family: 'Times New Roman', Times, serif; font-size: 18px;">
+              Solution
+              <span class="toggle-icon">▼</span>
+            </div>
+            <div class="solution-content">
+              <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+              <pre><code class="language-cpp stylecode">
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+typedef long long ll;
+#define mem(a,b) memset(a, b, sizeof(a))
+#define all(a) a.begin(), a.end()
+#define sz(A) (int) A.size()
+#define faster() ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+                
+const int base = 31;
+const ll MOD = 1e9 + 9;
+vector&lt;ll&gt;Pow, Hash, a;
+string s;
+int n, N;
+                
+ll getHash(int l, int r) {
+return (Hash[r] - Hash[l - 1] * Pow[r - l + 1] % MOD + MOD) % MOD;
+}
+                
+void __init__() {
+s = ' ' + s;
+n = s.length() - 1;
+Pow.resize(n + 1);
+Hash.resize(n + 1);
+Pow[0] = 1;
+for(int i = 1; i <= n; i++) {
+    Pow[i] = (Pow[i - 1] * base) % MOD;
+}
+for(int i = 1; i <= n; i++) {
+    Hash[i] = (Hash[i - 1] * base + (s[i] - 'a' + 1)) % MOD;
+    }
+}
+
+void solve() {
+    cin >> s;
+    __init__();
+    for(int k = 1; k <= n; k++) {
+        ll pre = getHash(1, k);
+        ll suf = getHash(n - k + 1, n);
+   //     cout << pre << ' ' << suf << endl;
+        if(pre == suf) {
+            a.push_back(k);
+        }
+    }
+    sort(a.rbegin(), a.rend());
+    if (a.empty()) {
+        cout << "Just a legend\n";
+    } else {
+        int len = -1;
+        for(auto k : a) {
+            for(int i = 2; i <= n - k; i++) {
+                if(getHash(i, i + k - 1) == getHash(1, k)) {
+                    cout << s.substr(1, k) << endl; exit(0);
+                }
+            }
+        }
+        cout << "Just a legend\n";
+      }
+  }
+  
+  
+int main(){
+    faster()
+    solve();
+    return 0;
+}</code></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Section 3 -->
+      <div class="section fontext" id="section1">
+        <div class="section-header" onclick="toggleSection(this)"
+          style="font-family: 'Times New Roman', Times, serif; font-size: 18px;">Bài toán 3: C. Vlad and a Sum of Sum of
+          Digits</div>
+        <div class="section-content">
+          <div class="blog-tags">
+            <p>Tag : </p>
+            <span class="tag">Dynamic Programming</span>
+            <span class="tag">Implement</span>
+            <span class="tag">1200</span>
+          </div>
+          <!-- link -->
+          <strong>Link bài toán: </strong><a
+            href="https://codeforces.com/contest/1926/problem/C">https://codeforces.com/contest/1926/problem/C</a>
+          <!--de bai-->
+          <div class="solution-card" onclick="toggleSolution(this)">
+            <div class="solution-header">
+              Tóm tắt đề bài
+              <span class="toggle-icon">▼</span>
+            </div>
+            <div class="solution-content">
+              <p>Cho một số n, tính tổng tất cả các chữ số từ 1 -> n</p>
+              <p><strong>Input :</strong></p>
+              <pre>
+12
+</pre>
+              <p><strong>Ouput :</strong></p>
+              <pre>
+51
+</pre>
+              <p><strong>Giải thích : </strong> 1+2+3+4+5+6+7+8+9+1+2+3=51.</p>
+            </div>
+          </div>
+
+          <div class="solution-card" onclick="toggleSolution(this)">
+            <!-- loi giai-->
+            <div class="solution-header">
+              Lời giải chi tiết
+              <span class="toggle-icon">▼</span>
+            </div>
+            <div class="solution-content">
+              <p> Bài này ta có thể sử dụng kỹ thuật Dynamic programming digit, nhưng mình sẽ dùng mảng cộng dồn và sàng
+                trước các chữ số,
+                vì giới hạn bài không quá lớn (1 ≤ n ≤ 2 * 10<sup>5</sup>).</p>
+              <ul style="list-style: none; padding-left: 0;">
+                <li>🔹 <strong>Ta có công thức để tính mảng cộng dồn là : </strong></li>
+                <ul style="list-style: none; padding-left: 20px; margin-top: 10px;">
+                  <li>✔️ <span class="formula">dp[i] = dp[i - 1] + digit(i)</span></li>
+                </ul>
+                </li>
+              </ul>
+
+              <p><strong>Quy trình thực hiện:</strong></p>
+              <ul style="list-style: none; padding-left: 0;">
+                <li>🟢 <strong>Bước 1:</strong> ta khởi tạo hàm <code>digit()</code> dùng để tách các chữ số từ 1 -> 2 *
+                  10<sup>5</sup></li>
+                <li>🟡 <strong>Bước 2:</strong> sử dụng mảng cộng dồn để sàng trước các giá trị, trong hàm __init__()
+                </li>
+                <li>🔴 <strong>Lưu ý : </strong> nếu bạn không biết cách hoạt động của hàm __init__(), 100% sẽ bị time
+                  limit, vì không để đúng vị trí</li>
+              </ul>
+            </div>
+          </div>
+
+          <!--solution-->
+
+          <div class="solution-card" onclick="toggleSolution(this)">
+            <div class="solution-header" style="font-family: 'Times New Roman', Times, serif; font-size: 18px;">
+              Solution
+              <span class="toggle-icon">▼</span>
+            </div>
+            <div class="solution-content">
+              <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+              <pre><code class="language-cpp stylecode">
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+typedef long long ll;
+#define mem(a,b) memset(a, b, sizeof(a))
+#define all(a) a.begin(), a.end()
+#define sz(A) (int) A.size()
+#define faster() ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+const int N = 2e5 + 15;
+
+vector&lt;int&gt;dp(N, 0);
+
+int digit(int n) {
+	int sum = 0;
+	while(n) {
+		sum = sum + (n % 10);
+		n = n / 10; 
+	}
+	return sum; 
+} 
+
+void __init__() {
+	dp[1] = 1;
+	for(int i = 2; i <= N; i++) {
+		dp[i] = dp[i - 1] + digit(i); 
+	} 
+} 
+
+void solve() {
+	int n; cin >> n;
+	cout << dp[n] << endl; 
+} 
+int main(){
+    faster();
+    __init__();
+    int t; cin >> t;
+    while(t--) {
+        solve();
+    }
+    return 0;
+}</code></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+</body>
+
+</html>

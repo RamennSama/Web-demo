@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giới thiệu - RM Solution</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <link rel="stylesheet" href="StyleCSS/MainStyle.css">
+    <script>
+        $(document).ready(function () {
+            $("#header").load("mainn/Header.html");
+            $("#footer").load("mainn/Footer.html");
+        });
+
+        function goBlog() {
+            window.location.href = "mainn/blog.html";
+        }
+
+        function goNotes() {
+            window.location.href = "mainn/notes.html";
+        }
+    </script>
+</head>
+
+<body style="margin-left: 20px;">
+    <div class="container">
+        <!-- Profile Card -->
+        <div class="profile-card">
+            <img src="IMAGE/cate.jpg" alt="Avatar">
+            <h2>Long Phạm</h2>
+            <p class="text-muted" style="font-size: 20px;">Sinh viên năm 3 - Công nghệ phần mềm 💻</p>
+            <p>📖 Bên dưới là quá trình học đại học của mình tới bây giờ.</p>
+            <p>📚 Mình chia sẻ giải pháp lập trình tại Blog và các web học tập mình thấy hữu ích trong quá trình học đại học tại Notes :</p>
+            <button class="btn btn-primary btn-custom" onclick="goBlog()" id="btn01"> Blog</button>
+            <button class="btn btn-primary btn-custom" onclick="goNotes()" id="btn02"> Notes</button>
+        </div>
+
+        <!-- Timeline -->
+        <ul class="timeline">
+            <li class="timeline-item">
+                <div class="circle"></div>
+                <div class="content">
+                    <h4>2022 - Nhập học</h4>
+                    <p>Nhập học Đại học Văn Hiến, bắt đầu hành trình Công nghệ phần mềm.</p>
+                </div>
+            </li>
+            <li class="timeline-item">
+                <div class="circle"></div>
+                <div class="content">
+                    <h4>2023 - Lập trình cạnh tranh</h4>
+                    <p>Bắt đầu học thuật toán, tham gia Codeforces, LeetCode, AtCoder.</p>
+                </div>
+            </li>
+            <li class="timeline-item">
+                <div class="circle"></div>
+                <div class="content">
+                    <h4>2024 - OLP Tin học</h4>
+                    <p>Tham dự OLP Tin học sinh viên 2024, học hỏi nhiều kinh nghiệm.</p>
+                </div>
+            </li>
+            <li class="timeline-item">
+                <div class="circle"></div>
+                <div class="content">
+                    <h4>2025 - Nghiên cứu và tiếp tục</h4>
+                    <p>Tìm tòi về AI, tiếp tục tham gia các cuộc thi lập trình cạnh tranh chuẩn bị cho OLP 2025</p>
+                </div>
+            </li>
+        </ul>
+        <footer id="footer"></footer>
+    </div>
+</body>
+
+</html>
